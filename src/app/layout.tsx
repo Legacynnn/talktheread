@@ -22,16 +22,16 @@ export default function RootLayout({
     <html
       lang="en"
       className={cn(
-        "bg-white text-slate-900 antialiased light",
+        "light bg-white text-slate-900 antialiased",
         inter.className
       )}
     >
-      <body className="min-h-screen pt-12 bg-slate-50 antialiased">
+      <body className="min-h-screen bg-slate-50 pt-12 antialiased">
         {/* @ts-expect-error server component */}
         <Navbar />
         {authModal}
 
-        <div className="container max-w-7xl mx-auto h-full pt-12">
+        <div className="container mx-auto h-full max-w-7xl pt-12">
           {children}
         </div>
 

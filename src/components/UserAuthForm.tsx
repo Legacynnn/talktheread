@@ -39,7 +39,7 @@ function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         onClick={loginWithGoogle}
         disabled={isLoading}
       >
-        {isLoading ? null : <Icons.google className="h-4 w-4 mr-2" />}
+        {isLoading ? null : <Icons.google className="mr-2 h-4 w-4" />}
         Google
       </Button>
     </div>
