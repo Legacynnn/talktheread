@@ -6,7 +6,7 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">project_title</h3>
+<h3 align="center">TalkThread</h3>
 
 <p align="center">
     TalkThread is a dynamic discussion platform designed to facilitate engaging conversations and exchange of ideas. It provides users with a modern and user-friendly interface to create,   participate in, and moderate discussion threads on a wide range of topics.
