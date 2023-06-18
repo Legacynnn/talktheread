@@ -46,7 +46,7 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
-  createdRooms  Rooms[]   @relation("createdBy")
+  createdRooms  Room[]   @relation("createdBy")
 
   username String? @unique
 
@@ -62,7 +62,7 @@ model User {
   @@map("users")
 }
 
-model Rooms {
+model Room {
   id         String   @id @default(cuid())
   name       String   @unique
   created_at DateTime @default(now())
@@ -80,9 +80,8 @@ model Rooms {
 model Subscription {
   user    User   @relation(fields: [userId], references: [id])
   userId  String
-  room    Rooms  @relation(fields: [roomsId], references: [id])
+  room    Room  @relation(fields: [roomId], references: [id])
   roomId  String
-  roomsId String
 
   @@id([userId, roomId])
   @@map("subscriptions")
@@ -94,7 +93,7 @@ model Post {
   content    Json?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  rooms      Rooms    @relation(fields: [roomsId], references: [id])
+  rooms      Room    @relation(fields: [roomsId], references: [id])
   roomsId    String
 
   author   User   @relation(fields: [authorId], references: [id])

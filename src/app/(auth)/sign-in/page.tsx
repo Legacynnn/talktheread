@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { ChevronLeft } from "lucide-react";
 import SignIn from "@/components/SignIn";
 
-function page() {
+function Page() {
   return (
     <div className="absolute inset-0">
       <div className="mx-auto flex h-full max-w-2xl flex-col items-center justify-center gap-20">
@@ -26,4 +26,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

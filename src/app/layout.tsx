@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "@/components/ui/Toaster";
+import Providers from "@/components/Providers";
 
 export const metadata = {
   title: "TalkThread",
@@ -27,15 +28,16 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-screen bg-slate-50 pt-12 antialiased">
-        {/* @ts-expect-error server component */}
-        <Navbar />
-        {authModal}
+        <Providers>
+          {/* @ts-expect-error server component */}
+          <Navbar />
+          {authModal}
 
-        <div className="container mx-auto h-full max-w-7xl pt-12">
-          {children}
-        </div>
-
-        <Toaster />
+          <div className="container mx-auto h-full max-w-7xl pt-12">
+            {children}
+          </div>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
