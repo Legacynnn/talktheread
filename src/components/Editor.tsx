@@ -68,6 +68,7 @@ export default function Editor({ roomId }: Props) {
             config: {
               uploader: {
                 async uploadByFile(file: File) {
+                  // upload to uploadthing
                   const [res] = await uploadFiles([file], "imageUploader");
 
                   return {
