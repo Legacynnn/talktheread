@@ -9,7 +9,7 @@
 <h3 align="center">project_title</h3>
 
 <p align="center">
-    project_description
+    TalkThread is a dynamic discussion platform designed to facilitate engaging conversations and exchange of ideas. It provides users with a modern and user-friendly interface to create,   participate in, and moderate discussion threads on a wide range of topics.
     <br />
     <br />
     <br />
