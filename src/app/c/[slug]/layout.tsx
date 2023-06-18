@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation";
 import React from "react";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { format } from "date-fns";
 import "server-only";
 import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
+import Link from "next/link";
 
 export default async function Layout({
   children,
@@ -93,6 +94,16 @@ export default async function Layout({
                   isSubscribe={isSubscribed}
                 />
               ) : null}
+
+              <Link
+                className={buttonVariants({
+                  variant: "outline",
+                  className: "mb-6 w-full",
+                })}
+                href={`c/${slug}/submit`}
+              >
+                Create post
+              </Link>
             </dl>
           </div>
         </div>
