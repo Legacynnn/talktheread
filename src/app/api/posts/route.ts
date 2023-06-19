@@ -43,7 +43,7 @@ export async function GET(req: Request) {
           name: roomName,
         },
       };
-    } else if (session?.user) {
+    } else if (session) {
       whereClause = {
         room: {
           id: {
@@ -67,6 +67,8 @@ export async function GET(req: Request) {
       },
       where: whereClause,
     });
+
+    return new Response(JSON.stringify(posts));
   } catch (err) {
     if (err instanceof z.ZodError) {
       return new Response(err.message, { status: 400 });
