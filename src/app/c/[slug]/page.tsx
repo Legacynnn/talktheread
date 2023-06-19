@@ -27,7 +27,9 @@ export default async function Page({ params }: Props) {
           comments: true,
           rooms: true,
         },
-
+        orderBy: {
+          created_at: "desc",
+        },
         take: INFINITE_SCROLLING_PAGINATION_RESULTS,
       },
     },
@@ -39,7 +41,7 @@ export default async function Page({ params }: Props) {
     <>
       <h1 className="h-14 text-3xl font-bold md:text-4xl">c/{room.name}</h1>
       <MiniCreatePost session={session} />
-      <PostFeed initialPost={[]} />
+      <PostFeed initialPost={room.posts} roomName={room.name} />
     </>
   );
 }

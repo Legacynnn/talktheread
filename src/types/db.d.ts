@@ -4,6 +4,5 @@ export type ExtendPost = Post & {
   room: Room;
   votes: Vote[];
   author: User;
-  comments: Comment[],
-  
+  comments: Comment[];
 };
