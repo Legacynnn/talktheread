@@ -63,6 +63,8 @@ export default function PostFeed({ initialPost, roomName }: Props) {
                 commentAmount={post.comments.length}
                 post={post}
                 roomName={post.room.name}
+                votesAmount={votesAmount}
+                currentVote={currentVote}
               />
             </li>
           );
@@ -73,6 +75,8 @@ export default function PostFeed({ initialPost, roomName }: Props) {
               post={post}
               roomName={post.room.name}
               key={post.id}
+              votesAmount={votesAmount}
+              currentVote={currentVote}
             />
           );
         }

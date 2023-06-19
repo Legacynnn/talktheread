@@ -2,6 +2,10 @@ import { Post, User, Vote } from "@prisma/client";
 import React, { useRef } from "react";
 import { formatTimeToNow } from "../lib/utils";
 import { MessageSquare } from "lucide-react";
+import EditorOutput from "./EditorOutput";
+import PostVoteClient from "./post-vote/PostVoteClient";
+
+type PartialVote = Pick<Vote, "type">;
 
 interface Props {
   roomName: string;
@@ -10,14 +14,28 @@ interface Props {
     votes: Vote[];
   };
   commentAmount: number;
+  votesAmount: number;
+  currentVote?: PartialVote;
 }
 
-export default function Post({ roomName, post, commentAmount }: Props) {
+export default function Post({
+  roomName,
+  post,
+  commentAmount,
+  votesAmount,
+  currentVote,
+}: Props) {
   const pRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="rounded-md bg-white shadow">
       <div className="flex justify-between px-6 py-4">
+        <PostVoteClient
+          postId={post.id}
+          initialVotesAmount={votesAmount}
+          initialVote={currentVote?.type}
+        />
+
         <div className="w-0 flex-1">
           <div className="mt-1 max-h-40 text-xs text-gray-500">
             {roomName ? (
@@ -45,6 +63,7 @@ export default function Post({ roomName, post, commentAmount }: Props) {
             className="relative max-h-40 w-full overflow-clip text-sm"
             ref={pRef}
           >
+            <EditorOutput content={post.content} />
             {pRef.current?.clientHeight === 160 ? (
               <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white to-transparent" />
             ) : null}
