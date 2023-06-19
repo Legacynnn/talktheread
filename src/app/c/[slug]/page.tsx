@@ -25,7 +25,7 @@ export default async function Page({ params }: Props) {
           author: true,
           votes: true,
           comments: true,
-          rooms: true,
+          room: true,
         },
         orderBy: {
           created_at: "desc",

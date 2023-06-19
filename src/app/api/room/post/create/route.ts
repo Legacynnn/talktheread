@@ -33,7 +33,7 @@ export async function POST(req: Request) {
         title,
         content,
         authorId: session.user.id,
-        roomsId: roomId,
+        roomId: roomId,
       },
     });
 
