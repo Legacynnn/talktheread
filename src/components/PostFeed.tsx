@@ -59,11 +59,22 @@ export default function PostFeed({ initialPost, roomName }: Props) {
         if (index === posts.length - 1) {
           return (
             <li key={post.id} ref={ref}>
-              <Post post={post} roomName={post.room.name} />
+              <Post
+                commentAmount={post.comments.length}
+                post={post}
+                roomName={post.room.name}
+              />
             </li>
           );
         } else {
-          return <Post post={post} roomName={post.room.name} key={post.id} />;
+          return (
+            <Post
+              commentAmount={post.comments.length}
+              post={post}
+              roomName={post.room.name}
+              key={post.id}
+            />
+          );
         }
       })}
     </ul>
