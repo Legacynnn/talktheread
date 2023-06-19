@@ -4,6 +4,7 @@ import { db } from "@/lib/db";
 import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "@/config";
 import { notFound } from "next/navigation";
 import MiniCreatePost from "@/components/MiniCreatePost";
+import PostFeed from "@/components/PostFeed";
 
 interface Props {
   params: {
@@ -38,6 +39,7 @@ export default async function Page({ params }: Props) {
     <>
       <h1 className="h-14 text-3xl font-bold md:text-4xl">c/{room.name}</h1>
       <MiniCreatePost session={session} />
+      <PostFeed initialPost={[]} />
     </>
   );
 }

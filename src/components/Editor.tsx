@@ -7,12 +7,19 @@ import { PostCreate, PostValidator } from "@/lib/validators/post";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type EditorJS from "@editorjs/editorjs";
 import { uploadFiles } from "../lib/uploadthing";
+import { toast } from "../hooks/use-toast";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   roomId: string;
 }
 
 export default function Editor({ roomId }: Props) {
+  const pahtName = usePathname();
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -28,12 +35,7 @@ export default function Editor({ roomId }: Props) {
 
   const ref = useRef<EditorJS>();
   const [isMounted, setIsMounted] = useState<Boolean>(false);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsMounted(true);
-    }
-  }, []);
+  const _titleRef = useRef<HTMLTextAreaElement>(null);
 
   const initializeEditor = useCallback(async () => {
     const EditorJS = (await import("@editorjs/editorjs")).default;
@@ -92,23 +94,104 @@ export default function Editor({ roomId }: Props) {
   }, []);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsMounted(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (Object.keys(errors).length) {
+      for (const [_key, value] of Object.entries(errors)) {
+        toast({
+          title: "Erghh, something goes wrong",
+          description: (value as { message: string }).message,
+          variant: "destructive",
+        });
+      }
+    }
+  }, [errors]);
+
+  useEffect(() => {
     const init = async () => {
       await initializeEditor();
 
-      setTimeout(() => {});
+      setTimeout(() => {
+        _titleRef.current?.focus();
+      });
     };
 
     if (isMounted) {
       init();
-      return () => {};
+      return () => {
+        ref.current?.destroy();
+        ref.current = undefined;
+      };
     }
   }, [isMounted, initializeEditor]);
 
+  const { mutate: createPost } = useMutation({
+    mutationFn: async ({ title, content, roomId }: PostCreate) => {
+      const payload: PostCreate = {
+        roomId,
+        title,
+        content,
+      };
+
+      const { data } = await axios.post("/api/room/post/create", payload);
+      return data;
+    },
+    onError: () => {
+      return toast({
+        title: "Erghh, something goes wrong",
+        description: "Please try to create your post again",
+        variant: "destructive",
+      });
+    },
+    onSuccess: () => {
+      const newPathName = pahtName.split("/").slice(0, -1).join("/");
+      router.push(newPathName);
+
+      router.refresh();
+
+      return toast({
+        title: "🥳 Your post has been created",
+        description: "Now, everyone on your room can see it",
+      });
+    },
+  });
+
+  async function onSubmit(data: PostCreate) {
+    const blocks = await ref.current?.save();
+
+    const payload: PostCreate = {
+      title: data.title,
+      content: blocks,
+      roomId,
+    };
+
+    createPost(payload);
+  }
+
+  if (!isMounted) return null;
+
+  const { ref: titleRef, ...rest } = register("title");
+
   return (
     <div className="w-full rounded-lg border border-zinc-200 bg-zinc-50 p-4">
-      <form id="room-post-form" className="w-fit" onSubmit={() => {}}>
+      <form
+        id="room-post-form"
+        className="w-fit"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="prose prose-stone dark:prose-stone">
           <TextareaAutoSize
+            ref={(e) => {
+              titleRef(e);
+
+              // @ts-ignore
+              _titleRef.current = e;
+            }}
+            {...rest}
             placeholder="Title"
             className="w-full resize-none appearance-none overflow-hidden bg-transparent text-5xl font-bold focus:outline-none"
           />
