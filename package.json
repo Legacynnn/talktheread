@@ -8,7 +8,8 @@
     "prisma:dev": "dotenv -e .env.local prisma migrate dev ",
     "prsima:studio": "dotenv -e .env.local prisma studio ",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@editorjs/code": "^2.8.0",
