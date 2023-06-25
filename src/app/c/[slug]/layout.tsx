@@ -1,12 +1,13 @@
-import { notFound } from "next/navigation";
-import React from "react";
-import { Button, buttonVariants } from "@/components/ui/button";
+import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
+import { buttonVariants } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { format } from "date-fns";
-import "server-only";
-import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import React from "react";
+import "server-only";
+import ToFeedButton from "@/components/ToFeedButton";
 
 export default async function Layout({
   children,
@@ -57,7 +58,7 @@ export default async function Layout({
   return (
     <div className="mx-w-7xl mx-auto h-full pt-12 sm:container">
       <div>
-        <Button variant="ghost" className="-mt-6 self-start" />
+        <ToFeedButton />
         <div className="grid grid-cols-1 gap-y-4 py-6 md:grid-cols-3 md:gap-x-3">
           <div className="col-span-2 flex flex-col space-y-6">{children}</div>
 

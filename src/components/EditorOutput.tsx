@@ -28,6 +28,7 @@ const renderers = {
 
 export default function EditorOutput({ content }: Props) {
   return (
+    // @ts-ignore
     <Output
       data={content}
       style={style}
