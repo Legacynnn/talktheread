@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useCustomToast } from "@/hooks/use-custom-toast";
+import { toast } from "@/hooks/use-toast";
+import { CreateRoomPayload } from "@/lib/validators/room";
 import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
-import { CreateRoomPayload } from "@/lib/validators/room";
-import { toast } from "@/hooks/use-toast";
-import { useCustomToast } from "@/hooks/use-custom-toast";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Page() {
   const [input, setInput] = useState<string>("");
@@ -19,6 +19,8 @@ export default function Page() {
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
+      const modifiedInput = input.replace(/\s+/g, "-");
+
       const payload: CreateRoomPayload = { name: input };
 
       const { data } = await axios.post("/api/room", payload);
