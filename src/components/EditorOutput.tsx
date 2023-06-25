@@ -1,7 +1,6 @@
-"use client"
+"use client";
 
 import dynamic from "next/dynamic";
-import React from "react";
 import Image from "next/image";
 
 const Output = dynamic(
@@ -29,7 +28,6 @@ const renderers = {
 
 export default function EditorOutput({ content }: Props) {
   return (
-    //@ts-expect-error
     <Output
       data={content}
       style={style}
