@@ -8,10 +8,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu";
 import { User } from "next-auth";
-import React from "react";
-import UserAvatar from "./UserAvatar";
-import Link from "next/link";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
+import UserAvatar from "./UserAvatar";
 
 interface UserAccountNavProps {
   user: Pick<User, "name" | "image" | "email">;
@@ -20,10 +19,16 @@ interface UserAccountNavProps {
 function UserAccountNav({ user }: UserAccountNavProps) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="relative">
         <UserAvatar
           user={{ name: user.name || null, image: user.image || null }}
           className="h-8 w-8"
+        />
+
+        <div
+          className={
+            "absolute bottom-0 right-0 h-3 w-3 rounded-full bg-green-500"
+          }
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="bg-white" align="end">
@@ -43,7 +48,7 @@ function UserAccountNav({ user }: UserAccountNavProps) {
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
-          <Link href="/r/create">Create Community</Link>
+          <Link href="/c/create">Create Community</Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>

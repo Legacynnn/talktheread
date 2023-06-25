@@ -49,7 +49,7 @@ export default function Post({
                 <span className="px-1">-</span>
               </>
             ) : null}
-            <span>Posted By {post.author.name}</span>{" "}
+            <span>Posted By {post.author.username}</span>{" "}
             {formatTimeToNow(new Date(post.created_at))}
           </div>
 
