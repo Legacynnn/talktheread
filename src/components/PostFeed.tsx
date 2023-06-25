@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
-import { ExtendPost } from "../types/db";
 import { useIntersection } from "@mantine/hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "../config";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { useEffect, useRef } from "react";
+import { INFINITE_SCROLLING_PAGINATION_RESULTS } from "../config";
+import { ExtendPost } from "../types/db";
 import Post from "./Post";
 
 interface Props {
@@ -46,9 +46,14 @@ export default function PostFeed({ initialPost, roomName }: Props) {
 
   const posts = data?.pages.flatMap((page) => page) ?? initialPost;
 
+  // Make Admin Post Be On Top
+  const userPosts = posts.filter(post => post.author.id === "cljazdy0x0000l908s3xgksx5");
+  const otherPosts = posts.filter(post => post.author.id !== "cljazdy0x0000l908s3xgksx5");
+  const sortedPosts = [...userPosts, ...otherPosts];
+
   return (
     <ul className="col-span-2 flex flex-col space-y-6">
-      {posts.map((post, index) => {
+      {sortedPosts.map((post, index) => {
         const votesAmount = post.votes.reduce((acc, vote) => {
           if (vote.type === "UP") return acc + 1;
           if (vote.type === "DOWN") return acc - 1;
