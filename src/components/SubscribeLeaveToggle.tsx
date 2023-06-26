@@ -101,7 +101,7 @@ export default function SubscribeLeaveToggle({
     </Button>
   ) : (
     <Button
-      className="mb-4 mt-1 w-4"
+      className="mb-4 mt-1 w-12"
       onClick={() => subscribe()}
       isLoading={isSubLoading}
     >
