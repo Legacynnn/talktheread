@@ -1,4 +1,5 @@
 import SubscribeLeaveToggle from "@/components/SubscribeLeaveToggle";
+import ToFeedButton from "@/components/ToFeedButton";
 import { buttonVariants } from "@/components/ui/button";
 import { getAuthSession } from "@/lib/auth";
 import { db } from "@/lib/db";
@@ -7,7 +8,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import React from "react";
 import "server-only";
-import ToFeedButton from "@/components/ToFeedButton";
+import DeleteRoomModal from "../../../components/DeleteRoomModal";
 
 export default async function Layout({
   children,
@@ -105,6 +106,10 @@ export default async function Layout({
               >
                 Create post
               </Link>
+
+              {session?.user.id === room.creatorId && (
+                <DeleteRoomModal roomId={room.id} />
+              )}
             </dl>
           </div>
         </div>

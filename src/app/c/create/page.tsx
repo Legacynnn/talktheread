@@ -21,7 +21,7 @@ export default function Page() {
     mutationFn: async () => {
       const modifiedInput = input.replace(/\s+/g, "-");
 
-      const payload: CreateRoomPayload = { name: input };
+      const payload: CreateRoomPayload = { name: modifiedInput };
 
       const { data } = await axios.post("/api/room", payload);
 
