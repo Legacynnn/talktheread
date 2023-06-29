@@ -1,10 +1,10 @@
 import { HomeIcon } from "lucide-react";
 import Link from "next/link";
+import CommuntiesToFollow from "../components/CommuntiesToFollow";
 import CustomFeed from "../components/CustomFeed";
 import GenericFeed from "../components/GenericFeed";
 import { buttonVariants } from "../components/ui/button";
 import { getAuthSession } from "../lib/auth";
-import CommuntiesToFollow from "../components/CommuntiesToFollow";
 
 export default async function Home() {
   const session = await getAuthSession();
@@ -45,6 +45,7 @@ export default async function Home() {
             </div>
           </div>
 
+          {/* @ts-expect-error server component */}
           <CommuntiesToFollow />
         </div>
       </div>
